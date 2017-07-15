@@ -8,9 +8,10 @@ font-family: 'Roboto Slab', sans-serif;
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 40px;
   color: #00A79D;
   font-weight: 700;
+  margin-top: 30px;
 }
 
 span {
@@ -22,11 +23,39 @@ span {
 }
 
 .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 40vh;
   background-color: #E5F3F2;
-  margin: 0;
-  position: fixed;
+  margin-top: 0;
+  /*position: fixed;*/
+  width: 100%;
+}
 
+.title-input::placeholder,
+.body-input::placeholder {
+  color: #939598;
+}
+
+.title-input,
+.body-input,
+.save-button {
+  width: 350px;
+  height: 30px;
+  margin-top: 20px;
+}
+
+.save-button {
+  display: block;
+  color: #fff;
+  background-color: #00A79D;
+  border: none;
+}
+
+.save-button:hover {
+  background-color: #045055;
+}
 
 /*below here is styling for preppended html*/
 
@@ -38,7 +67,6 @@ span {
   background-color: #FFFFFF;
   overflow-y: scroll;
   box-sizing: border-box;
-
 }
 
 .search-input {
