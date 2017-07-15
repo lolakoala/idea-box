@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+font-family: 'Roboto Slab', sans-serif;
+}
+
+h1 {
+  font-size: 30px;
+  color: #00A79D;
+  font-weight: 700;
+}
+
+span {
+  color: #6D6E71;
+}
+
+.title-input {
+  display: block;
+}
+
+.header {
+  height: 40vh;
+  background-color: #E5F3F2;
+  margin: 0;
+  position: fixed;
+}
