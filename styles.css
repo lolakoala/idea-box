@@ -18,6 +18,14 @@ span {
   color: #6D6E71;
 }
 
+input:focus {
+  outline: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
 .title-input {
   display: block;
 }
@@ -30,7 +38,7 @@ span {
   background-color: #E5F3F2;
 
   margin: 0;
-  
+
   width: 100%;
 }
 
@@ -55,8 +63,12 @@ span {
   border: none;
 }
 
-.save-button:hover {
+.save-button:enabled:hover {
   background-color: #045055;
+}
+
+.save-button:disabled {
+  background-color: #939598;
 }
 
 /*below here is styling for preppended html*/
@@ -75,8 +87,8 @@ span {
   line-height: 30px;
   width: 350px;
   margin: 20px;
-  font-size: 25px;
-  font-weight: 200;
+  /*font-size: 25px;
+  font-weight: 200;*/
   color: #939598;
 }
 
@@ -92,7 +104,6 @@ span {
 .card {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
-  color: #6D6E71;
   overflow: hidden;
   border: none;
 }
@@ -102,6 +113,7 @@ span {
   font-size: 16px;
   height: auto;
   display: inline-block;
+  color: #6D6E71;
 }
 
 .idea-body {
@@ -110,6 +122,9 @@ span {
   height: 40px;
   line-height: 20px;
   margin-bottom: 10px;
+  color: #939598;
+  resize: none;
+
 }
 
 .button-div {
