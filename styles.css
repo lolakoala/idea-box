@@ -25,7 +25,7 @@ span {
   height: 40vh;
   background-color: #E5F3F2;
   margin: 0;
-  position: fixed;
+  position: fixed;}
 
 
 /*below here is styling for preppended html*/
@@ -47,6 +47,7 @@ span {
   margin: 20px;
   font-size: 25px;
   font-weight: 200;
+  color: #939598;
 }
 
 .idea-card {
