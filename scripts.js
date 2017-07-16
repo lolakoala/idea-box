@@ -1,35 +1,80 @@
 // We will need a constructor function
 
-function Idea(id, title, body, quality = swill) {
+function Idea(id, title, body) {
   this.id = id;
   this.title = title;
   this.body = body;
+  this.quality = 'swill';
 }
-// event listener for .header input fields
-    // when .title-input.value !== ""  and .body-input.value !== "", .save-button.disabled = false
+
+$('.title-input').on('keypress', enableSave);
+$('.body-input').on('keypress', enableSave);
+
+
+function enableSave() {
+  var titleInput = $('.title-input').val();
+  var bodyInput = $('.body-input').val();
+  if ((titleInput !== "") && (bodyInput !== "")) {
+    $('.save-button').removeAttr('disabled');
+  };
+};
+
+$('.save-button').on('click', function() {
+  errorMsg();
+  addIdea();
+  // storeIdea();
+  clearFields();
+});
+
+function errorMsg() {
+  var titleInput = $('.title-input').val();
+  var bodyInput = $('.body-input').val();
+  if (titleInput === "") {
+    $('.title-input').val("Please inclue a title.");
+  } else if (bodyInput === "") {
+    $('.body-input').val("Please inclue an idea.");
+  };
+}
+
+// addIdea is not working, but alert w/in is working. Was working at one time,
+// and I didn't change anything about the function.
+
+function addIdea() {
+  var titleInput = $('.title-input').val();
+  var bodyInput = $('.body-input').val();
+  var ideaHtml = `<div class="idea-card"><input type="text" class= "card idea-title" value="${titleInput}" /><div class="button-div delete-button"></div><textarea rows="2" type="text" class= "card idea-body">${bodyInput}</textarea><div class="button-div upvote-button"></div><div class="button-div downvote-button"></div><p class="quality">quality: swill</p></div>`;
+  $('.idea-card').prepend(ideaHtml);
+  alert('idea added');
+}
+
+function clearFields() {
+  $('.title-input').val("");
+  $('.body-input').val("");
+}
+
+
+
+
+// How to save each idea with new variable/string name? ('saveIdea')
+// I think I stored the object incorrectly.
+var id = 0;
+
+function storeIdea() {
+  var titleInput = $('.title-input').val();
+  var bodyInput = $('.body-input').val();
+  id = id++;
+  var newIdea = new Idea(id, titleInput, bodyInput);
+  localStorage.setItem('saveIdea', newIdea);
+}
 
 // event listener for save button {
-      // when .title-input.value === "", placeholder = "Please include a title."
-      // when .body-input.value === "", placeholder = "Please include an idea."
 
-      // function to add html with .title-input.value and .body-input.value -preppend to .idea-container
-      // function to add idea to local storage
+        // function to add idea to local storage
       // Do we need localStorage.getItem?
       // }
 
 
-// function to add html with .title-input.value and .body-input.value -preppend to .idea-container
-              // <article class="idea-card">
-              // <form>
-              //     <input type="text" class= "card idea-title" value="body-input.value" />
-              //     <div class="button-div delete-button"></div>
-              //
-              //   <textarea rows="2" type="text" class= "card idea-body">title-input.value</textarea>
-              //   <div class="button-div upvote-button"></div>
-              //   <div class="button-div downvote-button"></div>
-              //     <p class="quality">quality: swill</p>
-              //   </form>
-              // </article>
+
       // add event listener to delete button {
           // function to remove .closest.idea-card
           // function to remove from local storage}
