@@ -36,15 +36,13 @@ function errorMsg() {
   };
 }
 
-// addIdea is not working, but alert w/in is working. Was working at one time,
-// and I didn't change anything about the function.
+
 
 function addIdea() {
   var titleInput = $('.title-input').val();
   var bodyInput = $('.body-input').val();
   var ideaHtml = `<div class="idea-card"><input type="text" class= "card idea-title" value="${titleInput}" /><div class="button-div delete-button"></div><textarea rows="2" type="text" class= "card idea-body">${bodyInput}</textarea><div class="button-div upvote-button"></div><div class="button-div downvote-button"></div><p class="quality">quality: swill</p></div>`;
-  $('.idea-card').prepend(ideaHtml);
-  alert('idea added');
+  $('.idea-list').prepend(ideaHtml);
 }
 
 function clearFields() {
@@ -64,7 +62,8 @@ function storeIdea() {
   var bodyInput = $('.body-input').val();
   id = id++;
   var newIdea = new Idea(id, titleInput, bodyInput);
-  localStorage.setItem('saveIdea', newIdea);
+  var stringifiedIdea = JSON.stringify(newIdea);
+  localStorage.setItem('saveIdea', stringifiedIdea);
 }
 
 // event listener for save button {
