@@ -19,9 +19,11 @@ function enableSave() {
   };
 };
 
+// event listener for save button {
 $('.save-button').on('click', function() {
   errorMsg();
   addIdea();
+  $('.delete-button').on('click', deleteIdea);
   // storeIdea();
   clearFields();
 });
@@ -53,6 +55,8 @@ function clearFields() {
 
 
 
+// function to add idea to local storage
+// Do we need localStorage.getItem?
 // How to save each idea with new variable/string name? ('saveIdea')
 // I think I stored the object incorrectly.
 var id = 0;
@@ -66,17 +70,20 @@ function storeIdea() {
   localStorage.setItem('saveIdea', stringifiedIdea);
 }
 
-// event listener for save button {
+function deleteIdea() {
+  this.closest('.idea-card').remove();
+  removeIdea();
+  }
 
-        // function to add idea to local storage
-      // Do we need localStorage.getItem?
-      // }
+  function removeIdea() {
+    // function to remove from local storage}
+
+  }
 
 
 
-      // add event listener to delete button {
-          // function to remove .closest.idea-card
-          // function to remove from local storage}
+
+
       // add event listener for upvote-button {
           // if (quality:swill) {
           // change to quality:plausible;
