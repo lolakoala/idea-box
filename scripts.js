@@ -24,6 +24,8 @@ $('.save-button').on('click', function() {
   errorMsg();
   addIdea();
   $('.delete-button').on('click', deleteIdea);
+  $('.upvote-button').on('click', upVote);
+  $('.downvote-button').on('click', downVote);
   // storeIdea();
   clearFields();
 });
@@ -77,20 +79,32 @@ function deleteIdea() {
 
   function removeIdea() {
     // function to remove from local storage}
+  }
 
+  function upVote() {
+    if (($('.quality').text()) === "quality: swill") {
+      $('.quality').text("quality: plausible");
+      // change object property in local storage
+    } else if (($('.quality').text()) === "quality: plausible") {
+      $('.quality').text("quality: genius");
+      // change object property in local storage
+    };
+  }
+
+  function downVote() {
+    if (($('.quality').text()) === "quality: genius") {
+      $('.quality').text("quality: plausible");
+      // change object property in local storage
+    } else if (($('.quality').text()) === "quality: plausible") {
+      $('.quality').text("quality: swill");
+      // change object property in local storage
+    };
   }
 
 
 
 
 
-      // add event listener for upvote-button {
-          // if (quality:swill) {
-          // change to quality:plausible;
-          // } else if (quality: plausible) {
-          // change to quality:genius;
-          // }}
-      // add event listener for downvote-button {
           // if (quality:genius) {
           // change to quality:plausible;
           // } else if (quality: plausible) {
