@@ -23,17 +23,28 @@ function enableSave() {
 $('.save-button').on('click', function() {
   errorMsg();
   constructIdea();
-  $('.delete-button').on('click', function(){
-    var cardId = parseInt($(this).closest('.idea-card').attr('id'));
-    console.log(cardId);
-  });
+
   // $('.delete-button').on('click', deleteIdea);
   $('.upvote-button').on('click', upVote);
   $('.downvote-button').on('click', downVote);
-  storeIdea();
+  // storeIdea();
   clearFields();
 });
 
+$('.idea-list').on('click', '.delete-button', function(){
+  var cardId = parseInt($(this).closest('.idea-card').attr('id'));
+
+  ideaArray.forEach(function(idea, index) {
+    if (idea.id === cardId) {
+      ideaArray.splice(index, 1);
+    }
+  });
+  localStorage.clear();
+  var stringifiedArray = JSON.stringify(ideaArray);
+  localStorage.setItem('saveIdea', stringifiedArray);
+  $(this).closest('.idea-card').remove();
+
+});
 
 function errorMsg() {
   var titleInput = $('.title-input').val();
@@ -53,7 +64,14 @@ function addIdea(newIdea) {
   var ideaId = newIdea.id;
   var ideaQuality = newIdea.quality;
   // I had added ${newIdea.id} as a class to the div, but the delete function stopped working
-  var ideaHtml = `<div class="idea-card" id"${ideaId}"><input type="text" class= "card idea-title" value="${titleInput}" /><div class="button-div delete-button"></div><textarea rows="2" type="text" class= "card idea-body">${bodyInput}</textarea><div class="button-div upvote-button"></div><div class="button-div downvote-button"></div><p class="quality">quality: ${ideaQuality}</p></div>`;
+  var ideaHtml = `<div class="idea-card" id = "${ideaId}">
+  <input type="text" class= "card idea-title" value="${titleInput}" />
+  <div class="button-div delete-button"></div>
+  <textarea rows="2" type="text" class= "card idea-body">${bodyInput}</textarea>
+  <div class="button-div upvote-button"></div>
+  <div class="button-div downvote-button"></div>
+  <p class="quality">quality: ${ideaQuality}</p>
+  </div>`;
   // is this the right place for event listeners? unclear if these are working
   // $('.idea-card').on('blur', editIdea);
   // $('.idea-card').keypress(function(event){
@@ -76,6 +94,7 @@ function constructIdea() {
   var body = $('.body-input').val();
   var newIdea = new Idea(title, body);
   addIdea(newIdea);
+  storeIdea(newIdea);
 }
 
 
@@ -93,10 +112,7 @@ function retrieveLocalStorage() {
   });
 }
 
-function storeIdea() {
-  var titleInput = $('.title-input').val();
-  var bodyInput = $('.body-input').val();
-  var newIdea = new Idea(titleInput, bodyInput);
+function storeIdea(newIdea) {
   ideaArray.push(newIdea);
   var stringifiedArray = JSON.stringify(ideaArray);
   localStorage.setItem('saveIdea', stringifiedArray);
