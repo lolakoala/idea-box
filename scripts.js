@@ -1,6 +1,6 @@
 // We will need a constructor function
 
-function Idea(id, title, body) {
+function Idea(id, title, body, quality) {
   this.id = id;
   this.title = title;
   this.body = body;
@@ -22,11 +22,11 @@ function enableSave() {
 // event listener for save button {
 $('.save-button').on('click', function() {
   errorMsg();
-  addIdea();
+  constructIdea();
   $('.delete-button').on('click', deleteIdea);
   $('.upvote-button').on('click', upVote);
   $('.downvote-button').on('click', downVote);
-  // storeIdea();
+  storeIdea();
   clearFields();
 });
 
@@ -42,9 +42,9 @@ function errorMsg() {
 
 
 
-function addIdea() {
-  var titleInput = $('.title-input').val();
-  var bodyInput = $('.body-input').val();
+function addIdea(newIdea) {
+  var titleInput = newIdea.title;
+  var bodyInput = newIdea.body;
   var ideaHtml = `<div class="idea-card"><input type="text" class= "card idea-title" value="${titleInput}" /><div class="button-div delete-button"></div><textarea rows="2" type="text" class= "card idea-body">${bodyInput}</textarea><div class="button-div upvote-button"></div><div class="button-div downvote-button"></div><p class="quality">quality: swill</p></div>`;
   $('.idea-list').prepend(ideaHtml);
 }
@@ -54,23 +54,36 @@ function clearFields() {
   $('.body-input').val("");
 }
 
+function constructIdea() {
+  var title = $('.title-input').val();
+  var body = $('.body-input').val();
+  id += 1;
+  var newIdea = new Idea(id, title, body);
+  addIdea(newIdea);
+}
 
 
-
-// function to add idea to local storage
-// Do we need localStorage.getItem?
-// How to save each idea with new variable/string name? ('saveIdea')
-// I think I stored the object incorrectly.
 var id = 0;
+var ideaArray = [];
+var saveCards = JSON.parse(localStorage.getItem('saveIdea')) || [];
+
+for (var i = 0; i < saveCards.length; i++) {
+  addIdea(saveCards[i]);
+  ideaArray.push(saveCards[i]);
+}
 
 function storeIdea() {
   var titleInput = $('.title-input').val();
   var bodyInput = $('.body-input').val();
-  id = id++;
+  id += 1;
   var newIdea = new Idea(id, titleInput, bodyInput);
-  var stringifiedIdea = JSON.stringify(newIdea);
-  localStorage.setItem('saveIdea', stringifiedIdea);
+  // make object an array
+  ideaArray.push(newIdea);
+  // var stringifiedIdea = JSON.stringify(ideaArray);
+  localStorage.setItem('saveIdea', JSON.stringify(ideaArray));
+  console.log(localStorage);
 }
+
 
 function deleteIdea() {
   this.closest('.idea-card').remove();
@@ -101,15 +114,6 @@ function deleteIdea() {
     };
   }
 
-
-
-
-
-          // if (quality:genius) {
-          // change to quality:plausible;
-          // } else if (quality: plausible) {
-          // change to quality:swill;
-          // }
 
 
 // event listener for clicking outside of input fields in .idea-container or pressing enter
