@@ -1,4 +1,16 @@
-// We will need a constructor function
+
+
+var ideaArray = [];
+
+$(window).on('load', retrieveLocalStorage());
+$('.title-input').on('keypress', enableSave);
+$('.body-input').on('keypress', enableSave);
+$('.save-button').on('click', saveFunction);
+$('.idea-list').on('click', '.upvote-button', upVote);
+$('.idea-list').on('click', '.downvote-button', downVote);
+$('.idea-list').on('click', '.delete-button', deleteFunction);
+$('.idea-list').on('blur', '.idea-title', editTitle)
+$('.idea-list').on('blur', '.idea-body', editBody)
 
 function Idea(title, body) {
   this.id = Date.now();
@@ -7,9 +19,27 @@ function Idea(title, body) {
   this.quality = 'swill';
 }
 
-$('.title-input').on('keypress', enableSave);
-$('.body-input').on('keypress', enableSave);
+function editTitle() {
+  var cardId = parseInt($(this).closest('.idea-card').attr('id'));
+  ideaArray.forEach(function(idea, index) {
+    if (idea.id === cardId) {
+      idea.title = $('.idea-title').val();
+    };
+    localStorage.clear();
+    var stringifiedArray = JSON.stringify(ideaArray);
+    localStorage.setItem('saveIdea', stringifiedArray);
+})}
 
+function editBody() {
+  var cardId = parseInt($(this).closest('.idea-card').attr('id'));
+  ideaArray.forEach(function(idea, index) {
+    if (idea.id === cardId) {
+      idea.body = $('.idea-body').val();
+    };
+    localStorage.clear();
+    var stringifiedArray = JSON.stringify(ideaArray);
+    localStorage.setItem('saveIdea', stringifiedArray);
+})}
 
 function enableSave() {
   var titleInput = $('.title-input').val();
@@ -19,21 +49,18 @@ function enableSave() {
   };
 };
 
-// event listener for save button {
-$('.save-button').on('click', function() {
+
+function saveFunction() {
   errorMsg();
   constructIdea();
   clearFields();
-});
+};
 
-$('.idea-list').on('click', '.upvote-button', upVote);
 
 function upVote() {
 var cardId = parseInt($(this).closest('.idea-card').attr('id'));
-
 ideaArray.forEach(function(idea, index) {
   if (idea.id === cardId) {
-    console.log(idea.quality);
     if (idea.quality === 'swill') {
     idea.quality = 'plausible';
     $('.quality').text(`quality: ${idea.quality}`);
@@ -47,7 +74,6 @@ ideaArray.forEach(function(idea, index) {
   localStorage.setItem('saveIdea', stringifiedArray);
 })};
 
-$('.idea-list').on('click', '.downvote-button', downVote);
 
 function downVote() {
 var cardId = parseInt($(this).closest('.idea-card').attr('id'));
@@ -67,11 +93,9 @@ ideaArray.forEach(function(idea, index) {
   localStorage.setItem('saveIdea', stringifiedArray);
 })};
 
-$('.idea-list').on('click', '.delete-button', function(){
 
-  console.log('in delete function')
+function deleteFunction(){
   var cardId = parseInt($(this).closest('.idea-card').attr('id'));
-
   ideaArray.forEach(function(idea, index) {
     if (idea.id === cardId) {
       ideaArray.splice(index, 1);
@@ -81,7 +105,7 @@ $('.idea-list').on('click', '.delete-button', function(){
   localStorage.setItem('saveIdea', stringifiedArray);
   $('.delete-button').closest('.idea-card').remove();
 
-})});
+})};
 
 function errorMsg() {
   var titleInput = $('.title-input').val();
@@ -128,11 +152,7 @@ function constructIdea() {
 
 
 
-var ideaArray = [];
 
-$(window).on('load', function(){
-  retrieveLocalStorage();
-});
 
 function retrieveLocalStorage() {
   ideaArray = JSON.parse(localStorage.getItem('saveIdea')) || [];
@@ -152,15 +172,7 @@ function storeIdea(newIdea) {
 
 
 
-  // function downVote() {
-  //   if (($('.quality').text()) === "quality: genius") {
-  //     $('.quality').text("quality: plausible");
-  //     // change object property in local storage
-  //   } else if (($('.quality').text()) === "quality: plausible") {
-  //     $('.quality').text("quality: swill");
-  //     // change object property in local storage
-  //   };
-  // };
+
 
 
 
