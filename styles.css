@@ -39,7 +39,7 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 30vh;
+  height: 240px;
   background-color: #E5F3F2;
   width: 100%;
   position: fixed;
@@ -94,7 +94,7 @@ textarea:focus {
   overflow-y: scroll;
   box-sizing: border-box;
   position: absolute;
-  top: 32vh;
+  top: 240px;
 }
 
 .search-input {
@@ -195,9 +195,21 @@ textarea:focus {
     margin-top: 20px;
     }
 
-    .idea-title {
-      width: 260px;
-    }
+  .body-input {
+    height: 90px;
+  }
+
+  .header {
+    height: 300px;
+  }
+
+  .idea-container {
+    top: 300px;
+  }
+
+  .idea-title {
+    width: 260px;
+  }
 
   .idea-body {
     width: 300px;
