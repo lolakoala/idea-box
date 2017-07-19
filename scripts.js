@@ -15,6 +15,27 @@ $('.idea-list').on('blur', '.idea-body', editBody)
 $('.idea-list').on('keyup', '.idea-title', checkEnter)
 $('.idea-list').on('keyup', '.idea-body', checkEnter)
 
+$('.search-input').on('input', searchFunction)
+
+function searchFunction() {
+  ideaArray.forEach(function(idea, index) {
+    // if search input matches any part of title or body
+    if ($('.search-input').val() !== "") {
+      ideaArray.prototype.filter(function(idea) {
+        return (idea.title === $('.search-input').val()) || (idea.body === $('.search-input').val());
+      })
+      // how to make include matches for any part of title or body?
+      // how to display?
+      // remove idea cards that do not match
+      // display that .idea-card where idea.title or idea.body contain $('.search-input')
+      // first get from local storage?
+}
+// if search input empty, display all .idea-card
+else if ($('.search-input').val() === "") {
+  retrieveLocalStorage();
+}
+})}
+
 function Idea(title, body) {
   this.id = Date.now();
   this.title = title;
@@ -135,7 +156,6 @@ function addIdea(newIdea) {
   var bodyInput = newIdea.body;
   var ideaId = newIdea.id;
   var ideaQuality = newIdea.quality;
-  // I had added ${newIdea.id} as a class to the div, but the delete function stopped working
   var ideaHtml = `<div class="idea-card" id = "${ideaId}">
   <input type="text" class= "card idea-title" value="${titleInput}" />
   <div class="button-div delete-button"></div>
@@ -161,10 +181,6 @@ function constructIdea() {
   storeIdea(newIdea);
 };
 
-
-
-
-
 function retrieveLocalStorage() {
   ideaArray = JSON.parse(localStorage.getItem('saveIdea')) || [];
   ideaArray.forEach(function(idea) {
@@ -178,22 +194,3 @@ function storeIdea(newIdea) {
   localStorage.setItem('saveIdea', stringifiedArray);
   console.log(localStorage)
 };
-
-
-
-
-
-
-
-
-
-// this is not working, not getting in function at all. Event listeners not working?
-// function editIdea(newIdea) {
-//   alert('youre in editIdea');
-//   ideaArray.push(newIdea);
-//   localStorage.setItem('saveIdea', JSON.stringify(ideaArray));
-// }
-
-
-
-// Search and filter function.... WTF????
