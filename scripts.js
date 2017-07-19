@@ -12,11 +12,22 @@ $('.idea-list').on('click', '.delete-button', deleteFunction);
 $('.idea-list').on('blur', '.idea-title', editTitle)
 $('.idea-list').on('blur', '.idea-body', editBody)
 
+$('.idea-list').on('keyup', '.idea-title', checkEnter)
+$('.idea-list').on('keyup', '.idea-body', checkEnter)
+
 function Idea(title, body) {
   this.id = Date.now();
   this.title = title;
   this.body = body;
   this.quality = 'swill';
+}
+
+function checkEnter(e) {
+  e.which = e.which || e.keyCode;
+    if(e.which == 13) {
+      editTitle();
+      editBody();
+    }
 }
 
 function editTitle() {
