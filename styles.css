@@ -146,7 +146,7 @@ textarea:focus {
 }
 
 .delete-button {
-  background-image: url("images/delete.svg")
+  background-image: url("images/delete.svg");
   margin-bottom: -5px;
   margin-left: 5px;
 }
